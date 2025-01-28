@@ -1,72 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import ToDo from "./components/ToDo/ToDo";
+import Form from "./components/Form/Form";
+import "./App.css";
 
+function App() {
+  const [todos, setTodos] = useState([
+    { todo: "Faire les courses", date: "2025-01-27", status: "à faire" },
+    { todo: "Finir le projet React", date: "2025-01-28", status: "en cours" },
+  ]);
 
-// Déclare un tableau d’objets TODOS avec case a cocher
-const TODOS = [
-  { todo: "Faire les courses", date: "27/01/2025", checked: true },
-  { todo: "Réviser React", date: "28/01/2025", checked: false },
-  { todo: "Aller courir", date: "29/01/2025", checked: true },
-];
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const todoValue = event.target.elements[0].value;
+    const dateValue = event.target.elements[1].value;
 
+    if (!todoValue.trim() || !dateValue.trim()) {
+      alert("Veuillez remplir tous les champs avant d'ajouter une tâche.");
+      return;
+    }
 
-// Composant ToDO
-function ToDo({ todo, date, checked }) {
-  if (checked) {
-    return (
-      <li className="green">
-        <input type="checkbox" defaultChecked /> {todo} - {date}
-      </li>
+    const newTodo = { todo: todoValue, date: dateValue, status: "à faire" };
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+
+    event.target.reset();
+  };
+
+  const toggleStatus = (index) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo, i) =>
+        i === index
+          ? {
+              ...todo,
+              status:
+                todo.status === "à faire"
+                  ? "en cours"
+                  : todo.status === "en cours"
+                  ? "terminée"
+                  : "à faire",
+            }
+          : todo
+      )
     );
-  } else {
-    return <li className="orange">{todo} - {date}</li>;
-  }
-}
-
-// Le composant ToDoTernaire 
-function ToDoTernaire({ todo, date, checked }) {
-  return (
-    <li className={checked ? "green" : "orange"}>
-      {checked && <input type="checkbox" defaultChecked />}
-      {todo} - {date}
-    </li>
-  );
-}
-
-// Le composant ToDoAnd
-function ToDoAnd({ todo, date, checked }) {
-  return (
-    <li>
-      {todo} - {date}
-      {checked && <input type="checkbox" defaultChecked />}
-    </li>
-  );
-}
-
-
-function App() { 
+  };
 
   return (
     <article className="todolist">
-      <h1>Ma ToDo List</h1>
+      <h1>Ma To-Do List</h1>
       <h2>{new Date().toLocaleString()}</h2>
-
       <ul>
-      {TODOS.map((item, index) => (
-          <ToDo key={index} todo={item.todo} date={item.date} checked={item.checked} />
+        {todos.map((item, index) => (
+          <ToDo
+            key={index}
+            todo={item.todo}
+            date={item.date}
+            status={item.status}
+            onToggle={() => toggleStatus(index)}
+          />
         ))}
-        {/* {TODOS.map((item, index) => (
-          <ToDoTernaire key={index} todo={item.todo} date={item.date} checked={item.checked} />
-        ))}
-        {TODOS.map((item, index) => (
-          <ToDoAnd key={index} todo={item.todo} date={item.date} checked={item.checked} />
-        ))} */}
       </ul>
-
+      <Form onSubmit={handleSubmit} />
     </article>
   );
 }
 
-export default App
+export default App;

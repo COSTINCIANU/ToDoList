@@ -5,57 +5,53 @@
   text-align: center;
 }
 
-/* MOI  */
 .todolist {
-  background-color: #e495c9;
+  background-color: #b3b5bbfd;
   padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  margin: auto;
+  margin: 20px auto;
+  width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
-.green {
-  background-color: yellowgreen;
+.todolist h1 {
+  color: #464647;
+  text-align: center;
+  font-size: 2rem;
 }
-.orange {
-  background-color: orange;
-}
-
-/* FIN MOI  */
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.todolist h2 {
+  color: #464647;
+  text-align: center;
+  font-size: 2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todolist ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.todolist li {
+  background-color: #d328a0;
+  color: white;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
 }
 
-.card {
-  padding: 2em;
+.todolist input[type="submit"] {
+  background-color: hsl(318, 100%, 50%);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+.todolist input[type="submit"]:hover {
+  background-color:hsl(318, 100%, 50%);
 }
